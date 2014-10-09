@@ -1,12 +1,15 @@
-var myModule = require('./module');
+var http = require('http');
 
-myModule(process.argv[2], process.argv[3], function(err, data){
-	if(err){
-		console.log('Error occurred: ', err);
-		return;
-	}
+http.get(process.argv[2], function(res){
+	res.setEncoding('utf8');
+	res.on('data', function(data){
+		console.log(data);
+	});
+	res.on('error', function(err){
+		console.log(err);
+	});
 
-	for(var i=0; i<data.length; i++){
-		console.log(data[i]);
-	}
+	//NOTE: could also be written like this:
+	//res.on('data', console.log);
+	//res.on('error', console.error);
 });
