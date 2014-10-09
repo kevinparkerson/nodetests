@@ -1,7 +1,10 @@
 var fs = require('fs');
+var path = require('path');
 
-//using 'utf8' here as the second parameter to get a string back as data
-var fileString = fs.readFile(process.argv[2], 'utf8', function(err, data){
-	var newLines = data.split('\n');
-	console.log(newLines.length-1);
+fs.readdir(process.argv[2], function(err, files){
+	for(var i=0; i<files.length; i++){
+		if(path.extname(files[i])===('.' + process.argv[3])){
+			console.log(files[i]);
+		}
+	}
 });
